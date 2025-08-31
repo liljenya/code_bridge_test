@@ -21,5 +21,10 @@ export class ArticleService {
     return this.client.get<Article>(`https://api.spaceflightnewsapi.net/v4/articles/${id}/`);
   }
 
-
+  getArticlesByQuery(query: string) {
+    const params = new HttpParams()
+      .set('format', 'json')
+      .set('search', query);
+    return this.client.get<PaginatedResult<Article>>('https://api.spaceflightnewsapi.net/v4/articles', { params }).pipe(take(1));
+  }
 }
